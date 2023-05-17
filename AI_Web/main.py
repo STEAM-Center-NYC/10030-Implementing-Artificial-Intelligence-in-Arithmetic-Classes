@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, redirect,abort, send_from_directory
+from flask import Flask, render_template,request, redirect,abort, send_from_directory, g
 import pymysql.cursors
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -25,34 +25,55 @@ class User:
     def get_id(self):
         return str(self.id)
 
+@login_manager.user_loader
+def user_loader(user_id):
+    cursor = get_db().cursor()
+    cursor.execute("SELECT * FROM `users` WHERE `id` = " + user_id)
+    result = cursor.fetchone()
+    if result is None:
+        return None
 
-connection= pymysql.connect(
-   
+    return User(result['id'], result['username'], result['pfp'], result['banned'])
+
+def connect_db():
+    return pymysql.connect(
     host="10.100.33.60",
     user="mkhan",
     password='221085624',
-    database='',
+    database='mkhan_AI-WEB',
     cursorclass=pymysql.cursors.DictCursor,
     autocommit=True
+    )
 
-)
+def get_db():
+    '''Opens a new database connection per request.'''        
+    if not hasattr(g, 'db'):
+        g.db = connect_db()
+    return g.db    
 
-@login_manager.user_loader
-def user_loader(user_id):
-    cursor= connection.cursor()
+@app.teardown_appcontext
+def close_db(error):
+    '''Closes the database connection at the end of request.'''    
+    if hasattr(g, 'db'):
+        g.db.close() 
 
+app.get('/media/<path:path>')
+def send_media(path):
+    return send_from_directory('media', path)
+
+@app.errorhandler(404)
+def page_not_found(err):
+    return render_template('404.html.jinja'), 404
 
 @app.route("/")
 def index(): 
     return render_template("index.html.jinja")
 
-
-
-@app.route('/sign-in',methods=['GET'])
+@app.route('/sign-in',methods=['POST','GET'])
 def sign_in():
     if request.method == 'POST':
-        cursor= connection.cursor()
-        cursor.execute('SELECT * FROM `users` WHERE `user` = %s',(request.form['username']))
+        cursor= get_db().cursor()
+        cursor.execute('SELECT * FROM `Users` WHERE `Username` = %s',(request.form['Username']))
         result= cursor.fetchone()
 
 
@@ -71,15 +92,24 @@ def sign_in():
     elif request.method=='GET':
         return render_template("sign_in.html.jinja")
 
-        
 
-    return render_template("sign_in.html.jinja")
+@app.route('/sign-up',methods=['GET','POST'])
+def sign_up():
+    if current_user.is_authenticated:
+        return redirect('/')
+
+    if request.method == 'POST':
+        cursor = get_db().cursor()
 
 
-
-
-
-
+        cursor.execute("""
+            INSERT INTO `users` (`Username`, `Email`, `Password`) VALUES (%s, %s, %s)
+        """, (request.form['Username'], request.form['Password'], request.form['Email']))
+   
+        cursor.close()
+        return redirect('/')
+    elif request.method == 'GET':
+        return render_template("signup.html.jinja")
 
 
 
