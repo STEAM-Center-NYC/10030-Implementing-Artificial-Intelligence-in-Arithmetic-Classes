@@ -109,7 +109,7 @@ def sign_up():
         cursor.close()
         return redirect('/')
     elif request.method == 'GET':
-        return render_template("signup.html.jinja")
+        return render_template("sign_up.html.jinja")
 
 
 

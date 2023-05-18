@@ -7,7 +7,7 @@ body {
 }
 
 body {
-    background: linear-gradient(rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.4)), url('https://e0.pxfuel.com/wallpapers/857/313/desktop-wallpaper-social-media-wall-paper-black-social-media-thumbnail.jpg') no-repeat;
+    background: linear-gradient(rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.4)), url('/static/backgroundmath1.jpg') no-repeat;
     background-position: center center;
     background-size: cover;
     font-size: 16px;
@@ -101,11 +101,12 @@ span.bar:last-child {
 
 /* Quote Wrapper */
 .quote-wrapper {
-    background: linear-gradient(rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.2)), url('https://cdn.pixabay.com/photo/2020/05/18/16/17/social-media-5187243__340.png') no-repeat center center;
+    background: linear-gradient(rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.2)), url('/static/backgroundmath1.jpg') no-repeat center center;
     background-size: cover;
     border-radius: 10px 0 0 10px;
     flex-basis: 50%;
     height: 100%;
+    background: rgba(12, 12, 12, 0.786);
 }
 
 .quote-wrapper blockquote {
