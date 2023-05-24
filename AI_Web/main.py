@@ -85,7 +85,7 @@ def sign_in():
 
             login_user(user)
 
-            return redirect('/feed')
+            return redirect('/profile')
         else:
             return render_template("sign_in.html.jinja")
         
