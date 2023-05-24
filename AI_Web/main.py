@@ -80,7 +80,7 @@ def sign_in():
         if result is None:
             return redirect("/sign-in")
         
-        if result['password'] == request.form['password']:
+        if result['Password'] == request.form['Password']:
             user= User(result['id'],result['user'],result['ban'])
 
             login_user(user)
@@ -103,13 +103,26 @@ def sign_up():
 
 
         cursor.execute("""
-            INSERT INTO `users` (`Username`, `Email`, `Password`) VALUES (%s, %s, %s)
+            INSERT INTO `Users` (`Username`, `Email`, `Password`) VALUES (%s, %s, %s)
         """, (request.form['Username'], request.form['Password'], request.form['Email']))
    
         cursor.close()
         return redirect('/')
     elif request.method == 'GET':
         return render_template("sign_up.html.jinja")
+    
+
+@app.route('/AI-page',methods=['GET','POST'])
+def AI_Page():
+    return render_template('AI-page.html.jinja')
+
+@app.route('/profile',methods=['GET','POST'])
+def profile():
+    return render_template('profile.html.jinja')
+
+
+
+
 
 
 

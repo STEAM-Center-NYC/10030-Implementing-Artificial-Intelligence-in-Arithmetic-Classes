@@ -20,21 +20,33 @@
 				</div>
 			</div> #}
 
+			<div class="header-container">
+		<header>
+			<div class="heading">
+				<div class="container">
+					
+					
+				</div>
+			</div>
+
 			<div class="menu-items">
 				<div class="container">
 					<div class="menu">
 						<ul>
-                            <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
 							<li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/"><img src="/static/ALgebot_Logo.png" width="150" height="55" ></a>
                             </li>
-                            <li class="nav-item">
+							 <li class="nav-item container">
+                            <a class="nav-link" href=""></a>
+                            </li>
+                            <li class="nav-item container">
                             <a class="nav-link" href="/profile/{{current_user.username}}">Profile</a>
                             </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="/feed">Feed</a>
+							<li class="nav-item">
+                            <a class="nav-link" href="">    </a>
+                            </li>
+                            <li class="nav-item container">
+                            <a class="nav-link" href="/AI-page">Use Our AI</a>
                             </li>
                             <li class="nav-item">
                             </li>
@@ -58,29 +70,13 @@
 		</header>
 	</div>
 
+
         <main >
         
-            <h1 img src="/media/users/{{user.avatar}}"></h1>{{user.user}}</h1>
-            <h2>{{user.display_name}}</h2>
-            <p> {{user.Bio}}</p>
-           <div>
-            {%for post in posts%}
-            <div class="post">
-            
-                <div class="card mx-auto" style="width: 28rem;" >
-                    <img src="" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p>{{()}}</p>
-                        <p class="card-text">{{}}</p>
-                        <a href="#" class="btn btn-primary"></a>
-                    </div>
-                </div>
                
             
             </div>
-            <div class="b-example-divider"></div>
-            {%endfor%}
-           
+            
            
            </div>
         
